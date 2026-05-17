@@ -46,6 +46,7 @@
 (require 'muere-projectile)
 (require 'muere-terminal)
 (require 'muere-dispatcher)
+(require 'muere-window)
 (require 'muere-vc)
 (require 'muere-flycheck)
 (require 'muere-lsp)

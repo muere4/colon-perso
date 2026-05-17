@@ -33,10 +33,11 @@
   (define-key evil-normal-state-map (kbd "\"") (lambda () (interactive) (evil-window-vsplit) (windmove-right)))
   (define-key evil-normal-state-map (kbd "%") (lambda () (interactive) (evil-window-split) (windmove-down)))
 
-  (global-set-key (kbd "M-h") #'windmove-left)
-  (global-set-key (kbd "M-l") #'windmove-right)
-  (global-set-key (kbd "M-k") #'windmove-up)
-  (global-set-key (kbd "M-j") #'windmove-down))
+  (;; Windmove con bind-key* para que ningún modo mayor los pise
+  (bind-key* "M-h" #'windmove-left)
+  (bind-key* "M-l" #'windmove-right)
+  (bind-key* "M-k" #'windmove-up)
+  (bind-key* "M-j" #'windmove-down))
 
 
   ;; Escape inteligente

@@ -49,6 +49,7 @@ in
 
         hydra
         eat
+        shackle
 
 
         # Completion

@@ -5,7 +5,15 @@
   :config
   (vertico-mode 1)
   (setq vertico-count 15
-        vertico-cycle t))
+        vertico-cycle t)
+        ;; Navegación evil en vertico
+  (evil-define-key 'normal vertico-map
+    (kbd "q")  #'abort-minibuffers
+    (kbd "j")  #'vertico-next
+    (kbd "k")  #'vertico-previous
+    (kbd "G")  #'vertico-last
+    (kbd "gg") #'vertico-first
+    (kbd "RET") #'vertico-exit))
 
 ;; Orderless: matching por palabras separadas por espacios
 (use-package orderless
