@@ -5,6 +5,13 @@
 
 ;; Sin prompt al buscar definiciones
 (setq-default xref-prompt-for-identifier nil)
+;;; muere-lang.el --- soporte de lenguajes -*- lexical-binding: t; -*-
+
+;; Variable contextual
+(defvar-local mu/contextual-ide nil)
+
+;; Sin prompt al buscar definiciones
+(setq-default xref-prompt-for-identifier nil)
 
 ;; Función wrapper que abre el IDE contextual o el genérico
 (defun mu/open-ide ()
@@ -29,6 +36,7 @@
 (use-package rustic
   :mode ("\\.rs\\'" . rustic-mode)
   :config
+  (setq rustic-lsp-server 'rust-analyzer)
   (defhydra mu/ide-rust (:color teal :hint nil)
     "IDE › Rust"
     ("<f12>" keyboard-escape-quit)
@@ -40,7 +48,7 @@
     ("e" flycheck-next-error "goto error")
     ("d" mu/dap-dispatcher/body "debug"))
   (defun mu/rust-setup ()
-    (lsp)
+    (lsp-deferred)
     (setq-local mu/contextual-ide #'mu/ide-rust/body)
     (setq-local lsp-eldoc-hook nil))
   (add-hook 'rustic-mode-hook #'mu/rust-setup))
@@ -56,7 +64,7 @@
   ("d" mu/dap-dispatcher/body "debug"))
 
 (defun mu/c-setup ()
-  (lsp)
+  (lsp-deferred)
   (setq-local mu/contextual-ide #'mu/ide-c/body)
   (setq-local lsp-eldoc-hook nil)
   (setq-local tab-width 4)
@@ -66,7 +74,6 @@
 (add-hook 'c++-mode-hook #'mu/c-setup)
 
 ;; ─── Nix ────────────────────────────────────────────────────
-
 (use-package nix-mode
   :mode "\\.nix\\'"
   :config
@@ -76,7 +83,7 @@
     ("D" xref-find-definitions "goto def")
     ("R" xref-find-references "goto refs"))
   (defun mu/nix-setup ()
-    (lsp)
+    (lsp-deferred)
     (setq-local mu/contextual-ide #'mu/ide-nix/body))
   (add-hook 'nix-mode-hook #'mu/nix-setup))
 

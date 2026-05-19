@@ -11,7 +11,11 @@
   (eshell-mode . eat-eshell-mode)
   :config
   (setq eat-kill-buffer-on-exit t)
-  (evil-set-initial-state 'eat-mode 'insert))
+  (evil-set-initial-state 'eat-mode 'insert)
+  (evil-define-key 'normal eat-mode-map
+    (kbd "p") (lambda () (interactive)
+                (eat-self-input 1 (current-kill 0))
+                (evil-insert-state))))
 
 (provide 'muere-terminal)
 ;;; muere-terminal.el ends here
